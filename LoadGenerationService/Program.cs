@@ -16,11 +16,12 @@ namespace LoadGeneratorService
             WebHost.CreateDefaultBuilder(args)
                 .ConfigureServices(services => services.AddAutofac())
                 .UseStartup<Startup>()
-                .UseKestrel(options =>
-                {
-                    options.Listen(IPAddress.Loopback, 5000);
-                    options.Limits.MaxConcurrentConnections = 1000;
-                })
+                //.UseKestrel(options =>
+                //{
+                //    options.Listen(IPAddress.Loopback, 5050);
+                //    options.Limits.MaxConcurrentConnections = 1000;
+                //})
+                .UseKestrel()
                 .Build();
     }
 }
