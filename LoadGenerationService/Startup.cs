@@ -1,6 +1,7 @@
 ﻿using System;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using LoadGeneratorService.Middleware.BasicLogging;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -40,6 +41,8 @@ namespace LoadGeneratorService
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseLogging();
 
             app.UseMvc();
         }
