@@ -14,3 +14,9 @@ spec:
         image: odestanoglu/loadgenerationservice:1.0
         ports:
         - containerPort: 80
+        livenessProbe:
+            httpGet:
+                path: /probe/health
+                port: 80
+            initialDelaySeconds: 15
+            periodSeconds: 5
