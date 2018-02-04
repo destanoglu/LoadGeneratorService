@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
       - name: loadgenerator
-        image: odestanoglu/loadgenerationservice:1.0
+        image: odestanoglu/loadgenerationservice:1.2
         ports:
         - containerPort: 80
         livenessProbe:

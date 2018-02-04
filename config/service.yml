@@ -7,7 +7,7 @@ spec:
   - port: 8080
     targetPort: 80
     protocol: TCP
-    nodePort:32000
+    nodePort: 32000
   selector:
     app: loadgenerator
   type: LoadBalancer
