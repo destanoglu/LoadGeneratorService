@@ -1,0 +1,25 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: loadgenerator-deployment
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: loadgenerator
+    spec:
+      containers:
+      - name: loadgenerator
+        image: odestanoglu/loadgenerationservice:1.2
+        ports:
+        - containerPort: 80
+        livenessProbe:
+            httpGet:
+                path: /probe/health
+                port: 80
+            initialDelaySeconds: 15
+            periodSeconds: 5
+        resources:
+          limits:
+            cpu: "1000m"
