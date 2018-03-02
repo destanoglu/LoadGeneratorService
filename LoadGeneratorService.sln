@@ -1,13 +1,22 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoadGeneratorService", "LoadGenerationService\LoadGeneratorService.csproj", "{4EBD90A2-B13D-499C-83EF-68B6F7C7B5D7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControllerExtension", "ClassLibrary1\ControllerExtension.csproj", "{E65A1A93-4A9D-40CB-8198-FB9B7BB5063E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoadGenerationService.IntegrationTests", "LoadGenerationService.IntegrationTests\LoadGenerationService.IntegrationTests.csproj", "{A61D2F11-34E4-4D97-8D4C-0D4359951081}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoadGenerationService.IntegrationTests", "LoadGenerationService.IntegrationTests\LoadGenerationService.IntegrationTests.csproj", "{A61D2F11-34E4-4D97-8D4C-0D4359951081}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "KubernetesConfig", "KubernetesConfig", "{1EE74414-BFB2-40BB-BB67-7FF72ADFE11D}"
+	ProjectSection(SolutionItems) = preProject
+		config\autoscaler.yml = config\autoscaler.yml
+		config\deployment.yml = config\deployment.yml
+		config\deployment_limited.yml = config\deployment_limited.yml
+		config\pod.yml = config\pod.yml
+		config\service.yml = config\service.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
