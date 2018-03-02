@@ -1,4 +1,5 @@
 ﻿using LoadGeneratorService;
+using LoadGeneratorService.LoadGenerator;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,7 +14,7 @@ namespace LoadGenerationService.IntegrationTests.InjectionTests
         public void ConfigureTestServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddTransient<IInternalLoadGenerator, StubLoadGenerator>();
+            services.AddTransient<ILoad, StubLoad>();
         }
     }
 }

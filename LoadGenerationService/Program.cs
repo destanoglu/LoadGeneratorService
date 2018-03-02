@@ -16,12 +16,8 @@ namespace LoadGeneratorService
             WebHost.CreateDefaultBuilder(args)
                 .ConfigureServices(services => services.AddAutofac())
                 .UseStartup<Startup>()
-                //.UseKestrel(options =>
-                //{
-                //    options.Listen(IPAddress.Loopback, 5050);
-                //    options.Limits.MaxConcurrentConnections = 1000;
-                //})
                 .UseKestrel()
+                .UseUrls($"http://*:4000")
                 .Build();
     }
 }

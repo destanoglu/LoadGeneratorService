@@ -1,6 +1,7 @@
 ﻿using System;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using LoadGeneratorService.LoadGenerator;
 using LoadGeneratorService.Middleware.BasicLogging;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,10 +27,21 @@ namespace LoadGeneratorService
             var builder = new ContainerBuilder();
 
             builder.Populate(services);
-            builder.RegisterType<PrimeFinder>().As<IInternalLoadGenerator>();
+            builder.RegisterType<PrimeFinder>().As<ILoad>();
+            builder.RegisterType<BackgroundLoadExecutor>().As<IBackgroundLoadExecutor>().SingleInstance();
+            builder.Register(c => new BacgroundLoadGenerator(c.Resolve<IBackgroundLoadExecutor>()))
+                .As<IBackgroundLoadGenerator>();
 
             var container = builder.Build();
 
+
+            var loadExecutor = container.Resolve<IBackgroundLoadExecutor>();
+            loadExecutor.Start();
+
+            var loadGenerator = container.Resolve<IBackgroundLoadGenerator>();
+            loadGenerator.SleepInterval = 500;
+            loadGenerator.Start();
+            
             return new AutofacServiceProvider(container);
         }
         

@@ -1,13 +1,13 @@
-﻿using System.Net.Http;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace LoadGeneratorService
+namespace LoadGeneratorService.LoadGenerator
 {
-    public interface IInternalLoadGenerator
+    public interface ILoad
     {
-        Task<IList<int>> GenerateLoad(int upTo, bool validate);
+        Task<IList<int>> ExecuteLoad(int upTo, bool validate);
     }
 
     public class ValidationResponse
@@ -19,32 +19,35 @@ namespace LoadGeneratorService
         public bool IsValid { get; set; }
     }
 
-    public class PrimeFinder : IInternalLoadGenerator
+    public class PrimeFinder : ILoad
     {
-        public async Task<IList<int>> GenerateLoad(int upTo, bool validate)
+        public async Task<IList<int>> ExecuteLoad(int upTo, bool validate)
         {
             var primes = new List<int>();
-            int p;
-            for (int i = 2; i < upTo; i++)
+            for (var i = 2; i < upTo; i++)
             {
-                p = 0;
-                for (int j = 2; j < i; j++)
+                var p = 0;
+                for (var j = 2; j < i; j++)
                 {
                     if (i % j == 0)
                         p = 1;
                 }
-                if (p == 0)
+
+                if (p != 0)
                 {
-                    if (validate)
-                    {
-                        var validationResult = await Validate(i);
-                        if (!validationResult)
-                        {
-                            continue;
-                        }
-                    }
-                    primes.Add(i);
+                    continue;
                 }
+
+                if (validate)
+                {
+                    var validationResult = await Validate(i);
+                    if (!validationResult)
+                    {
+                        continue;
+                    }
+                }
+
+                primes.Add(i);
             }
 
             return primes;

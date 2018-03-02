@@ -1,24 +1,25 @@
 ﻿using System;
 using System.Threading.Tasks;
+using LoadGeneratorService.LoadGenerator;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LoadGeneratorService.Controllers
 {
     [Route("api/load")]
-    public class ValuesController : Controller
+    public class LoadController : Controller
     {
-        private readonly IInternalLoadGenerator loadGenerator;
-        public ValuesController(IInternalLoadGenerator loadGenerator)
+        private readonly ILoad _load;
+        public LoadController(ILoad load)
         {
-            this.loadGenerator = loadGenerator;
+            _load = load;
         }
 
         // GET api/load/5
-        [HttpGet("{load_value}")]
-        public async Task<string> Get(int load_value)
+        [HttpGet("{loadValue}")]
+        public async Task<string> Get(int loadValue)
         {
             var validationRequest = HttpContext.Request.Query["validate"].ToString();
-            var primes = await loadGenerator.GenerateLoad(load_value, !IsNullOrEmptyString(validationRequest));
+            var primes = await _load.ExecuteLoad(loadValue, !IsNullOrEmptyString(validationRequest));
             return string.Join(", ", primes);
         }
 
